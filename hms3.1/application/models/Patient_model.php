@@ -553,7 +553,7 @@ class Patient_model extends CI_Model
         $this->db->where('patients.is_active', 'yes');
         if (!isset($_POST['order'])) {
             // $this->db->order_by('max(opd_details.appointment_date)', 'desc');
-            $this->db->order_by('id', 'desc');
+            $this->db->order_by('opd_details.id', 'desc');
         }
         $this->db->group_by('opd_details.patient_id');
         if (!empty($_POST['search']['value'])) {

@@ -1141,4 +1141,5 @@ $lang['consumer_secret'] = "Consumer Secret";
 $lang['vendorid'] = "Vendor ID";
 $lang['hashkey'] = "Hashkey";
 $lang['patient_already_in_ipd'] = "Patient is already admit in ipd"; 
+$lang['commission'] = 'Commission';
 ?>

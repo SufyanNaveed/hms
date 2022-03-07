@@ -111,6 +111,19 @@ class Staff_model extends CI_Model
         }
     }
 
+    public function search_commision($id){
+        $this->db->select('opd_details.*,patients.id as pid,patients.patient_name,patients.patient_unique_id,patients.guardian_name,patients.gender,patients.mobileno,patients.is_ipd,staff.name,staff.surname,staff.commission')->from('opd_details');
+        $this->db->join('patients', "patients.id=opd_details.patient_id", "LEFT");
+        $this->db->join('staff', 'staff.id = opd_details.cons_doctor', "LEFT");
+        $this->db->where('patients.is_active', 'yes');
+        $this->db->where('staff.id', $id);
+        $this->db->order_by('opd_details.appointment_date', 'Asc');
+        // $this->db->group_by('opd_details.appointment_date');
+        $query  = $this->db->get();
+        $result = $query->result();
+        return $result;
+    }
+
     public function batchInsert($data, $roles = array(), $leave_array = array())
     {
         $this->db->trans_start();

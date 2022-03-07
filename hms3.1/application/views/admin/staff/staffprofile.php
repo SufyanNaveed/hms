@@ -185,6 +185,7 @@ if ($staff['id'] == $logged_in_User['id']) {
                         <?php } if ($this->rbac->hasPrivilege('staff_attendance', 'can_view')) {?>
                         <li class=""><a href="#attendance" data-toggle="tab" aria-expanded="true"><?php echo $this->lang->line('attendance'); ?></a></li>
                         <?php } ?>
+                        <li class=""><a href="#commission" data-toggle="tab" aria-expanded="true"><?php echo $this->lang->line('commission'); ?></a></li>
                         <li class=""><a href="#documents" data-toggle="tab" aria-expanded="true"><?php echo $this->lang->line('document'); ?></a></li>                       
                         <li class=""><a href="#timelineh" data-toggle="tab" aria-expanded="true"><?php echo $this->lang->line('timeline'); ?></a></li>  
 
@@ -439,7 +440,53 @@ if ($staff['id'] == $logged_in_User['id']) {
                                     </tbody>
                                 </table>
                             </div> 
-                        </div>                       
+                        </div> 
+                        <div class="tab-pane" id="commission">
+                            <div class="row">
+                                <div class="col-md-12">
+                                     <div class="table-responsive">  
+                                     <?php
+                                        // echo '<pre>';
+                                        // print_r($staff_comission);
+                                        // echo '</pre>';
+                                     ?>  
+                                        <table class="table table-striped table-bordered table-hover example">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Refrence</th>
+                                                    <th>Date</th>
+                                                    <th>Amount</th>
+                                                    <th>Comission</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                    foreach ($staff_comission as $key1 => $staff_result){
+                                                        ?>
+                                                         <tr>
+                                                            <td><?php
+                                                                echo $staff_result->patient_name;
+                                                            ?></td>
+                                                            <td><?php
+                                                                echo $staff_result->opd_no;
+                                                            ?></td>
+                                                            <td><?php
+                                                                echo $staff_result->appointment_date;
+                                                            ?></td>
+                                                            <td><?php echo $staff_result->amount; ?></td>
+                                                            <td><?php echo $staff_result->commission; ?></td>
+                                                        </tr>
+                                                   <?php     
+                                                    }
+                                                ?>
+                                               
+                                            </tbody>
+                                        </table>
+                                      </div>       
+                                </div>
+                            </div>
+                        </div>                      
                         <div class="tab-pane" id="documents">
                             <div class="timeline-header no-border">
                                 <div class="row">
