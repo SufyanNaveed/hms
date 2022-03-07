@@ -1667,7 +1667,7 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
     $(document).ready(function() {
     $('.test_ajax').DataTable({
         "processing": true,
-        "order": [[ 3, "asc" ]],
+        "order": [[ 1, "asc" ]],
         "serverSide": true,
          "createdRow": function( row, data, dataIndex ) {
             $(row).children(':nth-child(8)').addClass('text-right');
