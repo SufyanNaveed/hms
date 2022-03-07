@@ -23,7 +23,7 @@ class Organisation_model extends CI_Model
         if ($id != null) {
             $this->db->where('id', $id);
         } else {
-            $this->db->order_by('id', 'desc');
+            $this->db->order_by('id', 'asc');
         }
         $query = $this->db->get();
         if ($id != null) {
