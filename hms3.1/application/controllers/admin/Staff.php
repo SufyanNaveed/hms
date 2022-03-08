@@ -237,6 +237,7 @@ class Staff extends Admin_Controller
         $data["roles"]            = $roles;
         $stafflist                = $this->staff_model->get();
         $data['stafflist']        = $stafflist;
+        $data['staff_comission'] = $this->staff_model->search_commision($id);
         $this->load->view('layout/header', $data);
         $this->load->view('admin/staff/staffprofile', $data);
         $this->load->view('layout/footer', $data);
