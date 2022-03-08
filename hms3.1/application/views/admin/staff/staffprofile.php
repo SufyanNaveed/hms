@@ -453,11 +453,9 @@ if ($staff['id'] == $logged_in_User['id']) {
                                         <table class="table table-striped table-bordered table-hover example">
                                             <thead>
                                                 <tr>
-                                                    <th>Name</th>
-                                                    <th>Refrence</th>
                                                     <th>Date</th>
-                                                    <th>Amount</th>
                                                     <th>Comission</th>
+                                                    <th>Status</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -466,16 +464,23 @@ if ($staff['id'] == $logged_in_User['id']) {
                                                         ?>
                                                          <tr>
                                                             <td><?php
-                                                                echo $staff_result->patient_name;
+                                                                echo $staff_result->month_name.' '.$staff_result->year_name;
                                                             ?></td>
                                                             <td><?php
-                                                                echo $staff_result->opd_no;
+                                                            // round(($staff_result->commision),2)
+                                                                echo round(($staff_result->commision),2);
                                                             ?></td>
-                                                            <td><?php
-                                                                echo $staff_result->appointment_date;
-                                                            ?></td>
-                                                            <td><?php echo $staff_result->amount; ?></td>
-                                                            <td><?php echo $staff_result->commission; ?></td>
+                                                            <td><?php 
+                                                                    if ($staff_result->comission_status == 'paid') {
+                                                                        echo 'Paid';
+                                                                    }else{
+                                                                        ?>
+                                                                        <a href="<?php echo base_url(); ?>admin/staff/commision_status/<?php echo $staff_result->id ?>/<?php echo $id; ?>" class="btn btn-primary"><?php echo $staff_result->comission_status; ?></a>
+                                                                        <?php
+                                                                    }
+                                                                    
+
+                                                                    ?></td>
                                                         </tr>
                                                    <?php     
                                                     }

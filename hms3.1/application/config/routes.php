@@ -62,5 +62,6 @@ $route['form/appointment'] = 'welcome/appointment';
 $route['page/(:any)'] = 'welcome/page/$1';
 $route['read/(:any)'] = 'welcome/read/$1';
 $route['frontend'] = 'welcome';
+// $route['staff/commision_status/{:any}/{:any}'] = 'staff/commision_status/$1/$2';
 
 

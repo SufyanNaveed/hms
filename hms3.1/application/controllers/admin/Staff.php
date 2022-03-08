@@ -243,6 +243,11 @@ class Staff extends Admin_Controller
         $this->load->view('layout/footer', $data);
     }
 
+    public function commision_status($id,$staff_id){
+        $this->staff_model->comission_status_update($id);
+        redirect('admin/staff/profile/' . $staff_id);
+    }
+
     public function countAttendance($st_month, $no_of_months, $emp)
     {
         $record = array();
