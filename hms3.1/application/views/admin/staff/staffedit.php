@@ -350,7 +350,7 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label><?php echo 'Commission(%)'; ?></label>
-                                                        <input type="text" class="form-control" name="commission" value="<?php echo set_value('commission') ?>" >
+                                                        <input type="text" class="form-control" name="commission" value="<?php echo $staff["commission"] ?>" >
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">

@@ -212,20 +212,21 @@ $currency_symbol = $this->customlib->getSchoolCurrencyFormat();
         <div class="row">
             <!-- left column -->
             <div class="col-md-12">
-                <div class="pprinta4">
-                    <img src="<?php
-if (!empty($print_details[0]['print_header'])) {
-    echo base_url() . $print_details[0]['print_header'];
-}
-?>" style="height:100px; width:100%;" class="img-responsive">
-                    <div style="height: 10px; clear: both;"></div>
-                </div>
+                <?php if (!empty($print_details[0]['print_header'])) { ?>
+                    <div class="pprinta4">
+                        <img src="<?php if (!empty($print_details[0]['print_header'])) {
+                            echo base_url() . $print_details[0]['print_header'];
+                            } ?>" style="height:100px; width:100%;" class="img-responsive">
+                        <div style="height: 10px; clear: both;"></div>
+                    </div>
+                <?php } else{ ?>
+                    <br> <br> <br> <br> <br> <br> <br> <br>
+                <?php } ?>
                 <div class="">
 
-                    <?php
-$date             = $result["appointment_date"];
-$appointment_date = date("Y-m-d", strtotime($date));
-?>
+                    <?php   $date             = $result["appointment_date"];
+                            $appointment_date = date("Y-m-d", strtotime($date));
+                    ?>
                     <table width="100%" class="printablea4">
                         <tr>
                             <th><?php echo $this->lang->line('prescription'); ?> #<?php echo $result["presid"] ?></th> <td></td>

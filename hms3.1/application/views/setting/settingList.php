@@ -352,7 +352,7 @@ $genderList = $this->customlib->getGender();
                                             <h4 class="session-head"><?php echo $this->lang->line('mobile_app'); ?></h4>
                                             <?php if (!$app_ver) {
                                                 ?>
-                                                <button type="button" class="btn btn-info btn-sm impbtntitle3" data-toggle="modal" data-target="#andappModal">Register Your Android App</button>
+                                                
                                                 <?php
                                             }
                                             ?>
