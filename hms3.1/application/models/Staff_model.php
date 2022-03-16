@@ -122,40 +122,35 @@ class Staff_model extends CI_Model
     }
 
     public function search_commision($id){
-        // $this->db->select('opd_details.*,patients.id as pid,patients.patient_name,patients.patient_unique_id,patients.guardian_name,patients.gender,patients.mobileno,patients.is_ipd,staff.name,staff.surname,staff.commission')->from('opd_details');
+        
         $this->db->select(' MONTHNAME(`opd_details`.appointment_date) as month_name,`opd_details`.appointment_date,MONTH(`opd_details`.appointment_date) as month,YEAR(`opd_details`.appointment_date) as year_name,SUM(opd_details.amount) * `staff`.`commission` / 100 as commision')->from('opd_details');
         $this->db->join('patients', "patients.id=opd_details.patient_id", "LEFT");
         $this->db->join('staff', 'staff.id = opd_details.cons_doctor', "LEFT");
         $this->db->where('patients.is_active', 'yes');
-        // $this->db->where('MONTH(opd_details.appointment_date)', date('m'));
-
         $this->db->where('staff.id', $id);
-        // GROUP BY MONTH(opd_details.appointment_date)
         $this->db->group_by('MONTH(opd_details.appointment_date)');
         $this->db->order_by('opd_details.appointment_date', 'Asc');
-        // $this->db->group_by('opd_details.appointment_date');
-        $query  = $this->db->get();
-        $result = $query->result();
+        $result = $this->db->get()->result();
+        //echo '<pre>'; print_r($result);exit;
+
         if (!empty($result)){
             foreach ($result as $key => $value){
+
                 $this->db->select('*')->from('monthly_comission');
                 $this->db->where('staff_id',$id);
                 $this->db->where('comission_month',$value->month);
                 $this->db->where('comission_year',$value->year_name);
                 $querys = $this->db->get();
-                // print_r($this->db->last_query());
-                if ($querys->num_rows() > 0){
+                                
+                $month = date('m');
+                $year = date('y');
+                if ($querys->num_rows() > 0 && $value->month >= $month && $value->year_name >= $year){
                     $row_data = $querys->row();
-                    // echo $row_data->id;
                     $this->db->where('id', $row_data->id);
-                    $update = $this->db->update('monthly_comission', array('staff_id' => $id,'appointment_date' => $value->appointment_date,'comission_month' => $row_data->comission_month, 'comission_year' => $row_data->comission_year, 'comission_amount' => $row_data->comission_amount, 'comission_status' => $row_data->comission_status));
-                }else{
-                    $this->db->insert('monthly_comission', array('staff_id' => $id,'appointment_date' => $value->appointment_date, 'comission_month' => $value->month, 'comission_year' => $value->year_name, 'comission_amount' => $value->commision , 'comission_status' => 'unpaid'));
-                    // echo $this->db->insert_id();
+                    $update = $this->db->update('monthly_comission', array('staff_id' => $id,'appointment_date' => $value->appointment_date,'comission_month' => $row_data->comission_month, 'comission_year' => $row_data->comission_year, 'comission_amount' => $value->commision, 'comission_status' => $row_data->comission_status));
+                }else if ($querys->num_rows() <= 0){
+                    $this->db->insert('monthly_comission', array('staff_id' => $id,'appointment_date' => $value->appointment_date, 'comission_month' => $value->month, 'comission_year' => $value->year_name, 'comission_amount' => $value->commision , 'comission_status' => 'unpaid')); 
                 }
-                // $this->db->insert('monthly_comission', array('staff_id' => $id,'appointment_date' => $value->appointment_date, 'comission_month' => $value->month, 'comission_year' => $value->year_name, 'comission_amount' => $value->commision , 'comission_status' => 'unpaid'));
-                //     echo $this->db->insert_id();
-                // print_r($this->db->last_query());
             }
         }
 
